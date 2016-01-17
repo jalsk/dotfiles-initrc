@@ -13,9 +13,9 @@ fi
 
 function mac() {
     if [ "$(uname)" = "Darwin" ] ; then
-        return true
+        return 0
     else
-        return false
+        return 1
     fi
 }
 
@@ -61,7 +61,7 @@ function dot-sh() { # install and configure zsh/bash
 }
 
 function dot-vim() { # install and configure vim and plugins
-    if mac() ; then
+    if mac ; then
         brew install macvim --override-system-vim
     fi
     link vim vim
@@ -73,7 +73,7 @@ function dot-vim() { # install and configure vim and plugins
 }
 
 function dot-git() { # install and configure git and scm_breeze
-    if mac() ; then
+    if mac ; then
         brew install git
     fi
     link git gitignore_global
@@ -109,7 +109,7 @@ function dot-link() { # link all config files
     link vim vimrc
     link git gitignore_global
     link tmux tmux.conf
-    if mac() ; then
+    if mac ; then
         link tmux tmux-osx.conf
     fi
 }
