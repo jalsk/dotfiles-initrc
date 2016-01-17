@@ -42,3 +42,7 @@ Thumbs.db
 ##########################
 *.swp
 .netrwhist
+
+# Version control files #
+#########################
+.gitignore

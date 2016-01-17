@@ -11,6 +11,14 @@ else
     echo "[OK] Functions loaded"
 fi
 
+function mac() {
+    if [ "$(uname)" = "Darwin" ] ; then
+        return true
+    else
+        return false
+    fi
+}
+
 # helper functions
 function link() {
     # $1 category, $2 file to link
@@ -48,13 +56,14 @@ function dot-sh() { # install and configure zsh/bash
     link sh bashrc
     link sh shrc
     safe-append $HOME/.zshrc "source \$HOME/.shrc"
-    safe-append $HOME/.zshrc "ZSH_THEME=\"agnoster\""
     safe-append $HOME/.zshrc "DEFAULT_USER=\"$(whoami)\""
     echo "[OK] Please move the theme config to the top of zshrc"
 }
 
 function dot-vim() { # install and configure vim and plugins
-    brew install macvim --override-system-vim
+    if mac() ; then
+        brew install macvim --override-system-vim
+    fi
     link vim vim
     link vim vimrc
     dir="$HOME/.vim/bundle/vundle"
@@ -64,7 +73,9 @@ function dot-vim() { # install and configure vim and plugins
 }
 
 function dot-git() { # install and configure git and scm_breeze
-    brew install git
+    if mac() ; then
+        brew install git
+    fi
     link git gitignore_global
     git config --global color.diff always
     git config --global alias.lg "log --color --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit"
@@ -98,6 +109,8 @@ function dot-link() { # link all config files
     link vim vimrc
     link git gitignore_global
     link tmux tmux.conf
-    link tmux tmux-osx.conf
+    if mac() ; then
+        link tmux tmux-osx.conf
+    fi
 }
 
