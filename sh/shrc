@@ -11,11 +11,6 @@ autoload -U promptinit
 promptinit
 prompt redhat
 
-# terminal tab title
-function title() {
-    echo -ne "\033]0;"$*"\007"
-}
-
 # tools
 function psa() {
     ps aux | grep $1 | grep -v grep
